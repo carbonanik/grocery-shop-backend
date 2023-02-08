@@ -1,0 +1,16 @@
+services:
+  grocery-shop-backend:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+      # env_file:
+      #   .env
+      # networks:
+      # - behind-nginx
+    container_name: grocery-shop-backend
+
+# networks:
+#     behind-nginx:
+#         external:
+#             name: behind-nginx-network

@@ -1,0 +1,55 @@
+[
+    {
+        "name": "Bakery and Bread",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "raspberries.png"
+    },
+    {
+        "name": "Meat and Seafood",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "pineapple.png"
+    },
+    {
+        "name": "Pasta and Rice",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "pear.png"
+    },
+    {
+        "name": "Oils Sauces",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "orange.png"
+    },
+    {
+        "name": "Salad Dressings",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "mango.png"
+    },
+    {
+        "name": "Cereals and Breakfast Foods",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "mango.png"
+    },
+    {
+        "name": "Soups and Canned Goods",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "lemons.png"
+    },
+    {
+        "name": "Frozen Foods",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "kiwis.png"
+    },
+    {
+        "name": "Dairy, Cheese and Eggs",
+        "description": "Description is the pattern of narrative development that aims to make vivid a place, object, character, or group.",
+        "image": "guava.png"
+    }
+]
+
+
+
+
+
+
+
+
