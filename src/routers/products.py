@@ -28,10 +28,16 @@ def read_products(
     return results
 
 
+@router.post('/product/favorite', response_model=List[ProductRead])
+def favorite_product(ids: List[int], session: Session = Depends(get_session)):
+    result = session.execute(f'SELECT * FROM product WHERE id IN {tuple(ids)}').fetchall()
+    return result
+
+
 @router.get('/product/{id}', response_model=ProductRead)
 @router.get('/product/{id}/with-category', response_model=ProductReadWithCategory)
 def product_by_id(id: int, session: Session = Depends(get_session)):
-
+    
     product = session.get(Product, id)
     if not product:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Product not found')

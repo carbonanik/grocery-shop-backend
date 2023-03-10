@@ -1,4 +1,5 @@
 from typing import Optional
+from pydantic import BaseModel
 
 from sqlmodel import Field, SQLModel, Relationship
 
@@ -36,5 +37,7 @@ class ProductUpdate(ProductBase):
     price: Optional[float] = None
     category_id: Optional[int] = None
 
+# class ProductIds(BaseModel):
+    # ids: List[]
 
 
