@@ -3,9 +3,9 @@ from typing import List
 from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlmodel import Session, select
 
-from database.database import get_session
-from models.product import *
-from models.product_and_category import ProductReadWithCategory
+from src.database.database import get_session
+from src.models.product import *
+from src.models.product_and_category import ProductReadWithCategory
 
 router = APIRouter()
 

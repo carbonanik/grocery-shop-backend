@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from models.categoty import CategoryRead
-from models.product import ProductRead
+from src.models.category import CategoryRead
+from src.models.product import ProductRead
 
 
 class CategoryReadWithProduct(CategoryRead):

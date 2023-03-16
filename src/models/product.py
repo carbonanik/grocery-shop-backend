@@ -2,8 +2,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 from sqlmodel import Field, SQLModel, Relationship
-
-from models.categoty import Category
+from src.models.category import Category
 
 
 class ProductBase(SQLModel):
@@ -20,7 +19,6 @@ class Product(ProductBase, table=True):
     __table_args__ = {'extend_existing': True}
 
     id: Optional[int] = Field(default=None, primary_key=True)
-
     category: Optional[Category] = Relationship(back_populates="products")
 
 
@@ -36,8 +34,3 @@ class ProductUpdate(ProductBase):
     name: Optional[str] = None
     price: Optional[float] = None
     category_id: Optional[int] = None
-
-# class ProductIds(BaseModel):
-    # ids: List[]
-
-

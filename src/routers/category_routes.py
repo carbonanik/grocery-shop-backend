@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlmodel import Session, select
 
-from database.database import get_session
-from models.categoty import *
-from models.product_and_category import CategoryReadWithProduct
+from src.database.database import get_session
+from src.models.category import *
+from src.models.product_and_category import CategoryReadWithProduct
 
 router = APIRouter()
 

@@ -2,8 +2,8 @@ import uvicorn as uv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database.database import create_db_and_tables
-from routers import products, categories
+from src.database.database import create_db_and_tables
+from src.routers import category_routes, products
 
 app = FastAPI(debug=True)
 
@@ -23,7 +23,7 @@ app.add_middleware(
 )
 
 app.include_router(products.router)
-app.include_router(categories.router)
+app.include_router(category_routes.router)
 
 
 @app.on_event("startup")

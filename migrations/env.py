@@ -8,8 +8,11 @@ from sqlmodel import SQLModel
 
 from alembic import context
 
-from models.product import Product
-from models.categoty import Category
+from src.models.product import Product
+from src.models.category import Category
+from src.models.order_item import OrderItem
+from src.models.order import Order
+from src.models.coupon import Coupon
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

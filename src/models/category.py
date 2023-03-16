@@ -13,7 +13,7 @@ class Category(CategoryBase, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    products: List["Product"] = Relationship(back_populates="category")
+    products: List['Product'] = Relationship(back_populates="category")
 
 
 class CategoryCreate(CategoryBase):
