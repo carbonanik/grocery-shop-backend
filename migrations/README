@@ -4,3 +4,7 @@ alembic revision --autogenerate -m "message"
 -- this create the migration file
 alembic upgrade head
 -- this will upgrade the database to the latest migration file
+
+
+-- when cascade error occure, reorder the drop in migration file 
+-- when null value error occure, epmty the table 

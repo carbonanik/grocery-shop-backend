@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 from sqlmodel import Field, SQLModel, Relationship
@@ -20,6 +20,7 @@ class Product(ProductBase, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     category: Optional[Category] = Relationship(back_populates="products")
+    order_items: List['Orderitem'] = Relationship(back_populates="product")
 
 
 class ProductCreate(ProductBase):

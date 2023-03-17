@@ -8,7 +8,7 @@ from src.models.product_and_category import CategoryReadWithProduct
 router = APIRouter()
 
 
-@router.post('/category', status_code=status.HTTP_201_CREATED, response_model=CategoryRead)
+@router.post('/category', status_code=status.HTTP_201_CREATED, response_model=CategoryRead, tags=['Category API'])
 def create_category(category: CategoryCreate, session: Session = Depends(get_session)):
     db_category = Category.from_orm(category)
     session.add(db_category)
@@ -17,15 +17,15 @@ def create_category(category: CategoryCreate, session: Session = Depends(get_ses
     return db_category
 
 
-@router.get('/category', response_model=List[CategoryRead])
-@router.get('/category/with-product', response_model=List[CategoryReadWithProduct])
+@router.get('/category', response_model=List[CategoryRead], tags=['Category API'])
+@router.get('/category/with-product', response_model=List[CategoryReadWithProduct], tags=['Category API'])
 def read_category(offset: int = 0, limit: int = Query(default=100, lte=100), session: Session = Depends(get_session)):
     results = session.exec(select(Category).offset(offset).limit(limit)).all()
     return results
 
 
-@router.get('/category/{id}', response_model=CategoryRead)
-@router.get('/category/{id}/with-product', response_model=CategoryReadWithProduct)
+@router.get('/category/{id}', response_model=CategoryRead, tags=['Category API'])
+@router.get('/category/{id}/with-product', response_model=CategoryReadWithProduct, tags=['Category API'])
 def category_by_id(id: int, session: Session = Depends(get_session)):
     category = session.get(Category, id)
     if not category:
@@ -35,7 +35,7 @@ def category_by_id(id: int, session: Session = Depends(get_session)):
     return category
 
 
-@router.put('/category/{id}', status_code=status.HTTP_202_ACCEPTED, response_model=CategoryRead)
+@router.put('/category/{id}', status_code=status.HTTP_202_ACCEPTED, response_model=CategoryRead, tags=['Category API'])
 def category_update(id: int, product: CategoryUpdate, session: Session = Depends(get_session)):
     db_category = session.get(Category, id)
 
@@ -52,7 +52,7 @@ def category_update(id: int, product: CategoryUpdate, session: Session = Depends
     return db_category
 
 
-@router.delete('/category/{id}')
+@router.delete('/category/{id}', tags=['Category API'])
 def category_delete(id: int, session: Session = Depends(get_session)):
     category = session.get(Category, id)
     if not category:

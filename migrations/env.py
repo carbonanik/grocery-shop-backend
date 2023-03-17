@@ -10,9 +10,10 @@ from alembic import context
 
 from src.models.product import Product
 from src.models.category import Category
-from src.models.order_item import OrderItem
-from src.models.order import Order
 from src.models.coupon import Coupon
+from src.models.order import Order
+from src.models.orderitem import Orderitem
+from src.models.coupon_order_link import CouponOrderLink
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

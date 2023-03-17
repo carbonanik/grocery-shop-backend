@@ -26,7 +26,7 @@ class Coupon(CouponBase, table=True):
     __table_args__ = {'extend_existing': True}
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    order: List['Order'] = Relationship(back_populates="order", link_model=CouponOrderLink)
+    orders: List['Order'] = Relationship(back_populates="coupons", link_model=CouponOrderLink)
 
 
 class CouponCreate(CouponBase):
