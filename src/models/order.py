@@ -13,7 +13,6 @@ class OrderStatus(enum.Enum):
     CANCELLED = 'CANCELLED'
 
 class OrderBase(SQLModel):
-    name: str
     count: int
     total_price: str
     order_date: str
@@ -26,8 +25,7 @@ class Order(OrderBase, table=True):
     order_items: List['Orderitem'] = Relationship(back_populates="order")
     coupons: List['Coupon'] = Relationship(back_populates='orders', link_model=CouponOrderLink)
 
-class OrderCreate(OrderBase):
-    pass
+
 
 
 

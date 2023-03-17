@@ -1,10 +1,12 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, status, HTTPException, Query
+from fastapi import APIRouter, Depends, status, Query
 from sqlmodel import Session, select
 
 from src.database.database import get_session
-from src.models.order import Order, OrderCreate
+from src.models.coupon import Coupon
+from src.models.order import Order
+from src.models.order_create import OrderCreate
 from src.models.order_with_items import OrderRead
 
 router = APIRouter()
@@ -12,10 +14,19 @@ router = APIRouter()
 
 @router.post('/order', status_code=status.HTTP_201_CREATED, response_model=OrderRead, tags=['Order API'])
 def create_order(order: OrderCreate, session: Session = Depends(get_session)):
+
+    order_items = order.order_items
+    coupons = order.coupons
+
     db_order = Order.from_orm(order)
+    db_order.order_items = order_items
+    
+    db_order.coupons = list(map(lambda x: session.get(Coupon, x.id), coupons))
+
     session.add(db_order)
     session.commit()
     session.refresh(db_order)
+
     return db_order
 
 

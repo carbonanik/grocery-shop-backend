@@ -14,12 +14,12 @@ class CouponStatus(enum.Enum):
 
 
 class CouponBase(SQLModel):
-    title: str = Field(index=True)
+    title: Optional[str] = None
     description: Optional[str] = None
-    code: str
-    discount: float
+    code: Optional[str] = None
+    discount: Optional[float] = None
     expire: Optional[str] = None
-    status: CouponStatus = Field(sa_column=Column(Enum(CouponStatus)))
+    status: Optional[CouponStatus] = Field(sa_column=Column(Enum(CouponStatus)))
 
 
 class Coupon(CouponBase, table=True):
