@@ -8,7 +8,7 @@ from src.deps.auth import ACCESS_TOKEN_EXPIRE_MINUTES, authenticate_user, create
 from src.models.user.user import User
 
 from src.crud import user_crud
-from src.models.user.user_extended import UserRead, UserUpdate
+from src.models.user.user_extended import UserCreate, UserRead, UserUpdate
 
 
 router = APIRouter(tags=['V1', 'Authentication API'])
@@ -36,9 +36,19 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
 
 
 @router.post("/register", response_model=UserRead)
-async def create_user(user: User, session: Session = Depends(get_session)):
-    user.hashed_password = get_password_hash(user.hashed_password)
-    return user_crud.create(user, session)
+async def create_user(user: UserCreate, session: Session = Depends(get_session)):
+    hashed_password = get_password_hash(user.password)
+
+    db_obj = User.from_orm(
+        user,
+        {'hashed_password': hashed_password}
+    )
+    # db_obj.hashed_password = hashed_password
+
+    session.add(db_obj)
+    session.commit()
+    session.refresh(db_obj)
+    return db_obj
 
 
 @router.put('/me/{id}', status_code=status.HTTP_202_ACCEPTED, response_model=UserRead)
