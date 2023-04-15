@@ -3,30 +3,19 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.database.database import create_db_and_tables
-from src.routers import category_routes, product_routes, coupon_routes, order_routes
+from src.apis import router
 
 app = FastAPI(debug=True)
 
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(product_routes.router)
-app.include_router(category_routes.router)
-app.include_router(order_routes.router)
-app.include_router(coupon_routes.router)
-
+app.include_router(router)
 
 @app.on_event("startup")
 def on_startup():

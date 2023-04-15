@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Session, create_engine
 
-engine = create_engine("postgresql://postgres:password@143.244.169.231:5432/grocery_shop_backend")
+engine = create_engine("postgresql://postgres:password@143.244.169.231:5434/grocery_shop_backend")
 
 
 def create_db_and_tables():

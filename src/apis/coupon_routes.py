@@ -4,31 +4,31 @@ from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlmodel import Session, select
 
 from src.database.database import get_session
-from src.models.coupon import CouponRead, Coupon, CouponCreate, CouponUpdate
+from src.models.coupon.coupon import *
+from src.models.coupon.coupon_extended import CouponCreate, CouponRead
+from src.crud import coupon_crud
 
-router = APIRouter()
+
+router = APIRouter(tags=['Coupon API', 'V1'])
 
 
-@router.post('/coupon', status_code=status.HTTP_201_CREATED, response_model=CouponRead, tags=['Coupon API'])
+@router.post('/coupon', status_code=status.HTTP_201_CREATED, response_model=CouponRead)
 def create_coupon(coupon: CouponCreate, session: Session = Depends(get_session)):
-    db_coupon = Coupon.from_orm(coupon)
-    session.add(db_coupon)
-    session.commit()
-    session.refresh(db_coupon)
+    db_coupon = coupon_crud.create(coupon, session)
     return db_coupon
 
 
-@router.get('/coupon', response_model=List[CouponRead], tags=['Coupon API'])
+@router.get('/coupon', response_model=List[CouponRead])
 def read_coupon(
         offset: int = 0,
         limit: int = Query(default=100, lte=100),
         session: Session = Depends(get_session)
 ):
-    results = session.exec(select(Coupon).offset(offset).limit(limit)).all()
+    results = coupon_crud.get(offset, limit, session)
     return results
 
 
-# @router.get('/coupon/{id}', response_model=CouponRead, tags=['Coupon API'])
+# @router.get('/coupon/{id}', response_model=CouponRead)
 # def coupon_by_id(id: int, session: Session = Depends(get_session)):
 
 #     coupon = session.get(Coupon, id)
@@ -38,7 +38,7 @@ def read_coupon(
 #     return coupon
 
 
-# @router.put('/coupon/{id}', status_code=status.HTTP_202_ACCEPTED, response_model=CouponRead, tags=['Coupon API'])
+# @router.put('/coupon/{id}', status_code=status.HTTP_202_ACCEPTED, response_model=CouponRead)
 # def coupon_update(id: int, coupon: CouponUpdate, session: Session = Depends(get_session)):
 #     db_coupon = session.get(Coupon, id)
 
@@ -56,7 +56,7 @@ def read_coupon(
 #     return db_coupon
 
 
-# @router.delete('/coupon/{id}', tags=['Coupon API'])
+# @router.delete('/coupon/{id}')
 # def coupon_delete(id: int, session: Session = Depends(get_session)):
 #     coupon = session.get(Coupon, id)
 #     if not coupon:

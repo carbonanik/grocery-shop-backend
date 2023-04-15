@@ -2,11 +2,13 @@ from typing import Optional, List
 from pydantic import BaseModel
 
 from sqlmodel import Field, SQLModel, Relationship
-from src.models.order import Order
-from src.models.product import Product
+from src.models.order.order import Order
+from src.models.product.product import Product
 
+class OrderitemEmptyBase(SQLModel):
+    pass
 
-class OrderitemBase(SQLModel):
+class OrderitemBase(OrderitemEmptyBase):
     count: int
     product_id: Optional[int] = Field(default=None, foreign_key="product.id")
     order_id: Optional[int] = Field(default=None, foreign_key="order.id")
@@ -23,6 +25,10 @@ class Orderitem(OrderitemBase, table=True):
 class OrderitemCreate(OrderitemBase):
     pass
 
+class OrderitemCreateWithOrder(OrderitemEmptyBase):
+    count: int
+    product_id: int
+    
 
 class OrderitemRead(OrderitemBase):
     id: int

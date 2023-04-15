@@ -1,11 +1,9 @@
 import enum
 from typing import Optional, List
-from pydantic import BaseModel
 from sqlmodel import Field, SQLModel, Relationship
 from sqlalchemy import Enum, Column
 
-from src.models.category import Category
-from src.models.coupon_order_link import CouponOrderLink
+from src.models.coupon.coupon_order_link import CouponOrderLink
 
 
 class CouponStatus(enum.Enum):
@@ -13,7 +11,10 @@ class CouponStatus(enum.Enum):
     INACTIVE = 'INACTIVE'
 
 
-class CouponBase(SQLModel):
+class CouponEmptyBase(SQLModel):
+    pass
+
+class CouponBase(CouponEmptyBase):
     title: Optional[str] = None
     description: Optional[str] = None
     code: Optional[str] = None
@@ -29,13 +30,3 @@ class Coupon(CouponBase, table=True):
     orders: List['Order'] = Relationship(back_populates="coupons", link_model=CouponOrderLink)
 
 
-class CouponCreate(CouponBase):
-    pass
-
-
-class CouponRead(CouponBase):
-    id: int
-
-
-class CouponUpdate(CouponBase):
-    pass
