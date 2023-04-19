@@ -5,6 +5,7 @@ from sqlmodel import Field, Relationship, SQLModel
 class UserBase(SQLModel):
     full_name: str
     email: str = Field(index=True)
+    phone: Optional[str] = Field(default=None)
     is_active: bool = Field(default=True)
 
 class UserBaseWithPassword(UserBase):

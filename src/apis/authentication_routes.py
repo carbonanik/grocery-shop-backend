@@ -1,6 +1,7 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from pydantic import BaseModel
 from sqlmodel import Session
 
 from src.database.database import get_session
@@ -13,9 +14,12 @@ from src.models.user.user_extended import UserCreate, UserRead, UserUpdate
 
 router = APIRouter(tags=['V1', 'Authentication API'])
 
+class LoginFormData(BaseModel):
+    username: str
+    password: str
 
 @router.post("/token", response_model=dict)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(form_data: LoginFormData):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -35,7 +39,7 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 
-@router.post("/register", response_model=UserRead)
+@router.post("/register", response_model=UserRead,  status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate, session: Session = Depends(get_session)):
     hashed_password = get_password_hash(user.password)
 
