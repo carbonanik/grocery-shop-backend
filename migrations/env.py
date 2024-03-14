@@ -1,4 +1,5 @@
 import asyncio
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -8,6 +9,7 @@ from sqlmodel import SQLModel
 
 from alembic import context
 
+# Models
 from src.models.product.product import Product
 from src.models.category.category import Category
 from src.models.coupon.coupon import Coupon
@@ -88,6 +90,7 @@ async def run_migrations_online():
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
 
+# config.set_main_option('sqlalchemy.url', os.getenv('DATABASE_URL'))
 
 if context.is_offline_mode():
     run_migrations_offline()

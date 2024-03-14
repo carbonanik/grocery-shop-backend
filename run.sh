@@ -1,1 +1,1 @@
-docker compose up --build
+uvicorn main:app --host '0.0.0.0' --env-file .env
