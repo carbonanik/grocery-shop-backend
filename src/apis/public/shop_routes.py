@@ -1,7 +1,7 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, status, Query
-from sqlmodel import Session, col, select
+from sqlmodel import Session
 
 from src.database.database import get_session
 from src.crud import shop_crud

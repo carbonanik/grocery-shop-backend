@@ -1,6 +1,15 @@
-from typing import List, Optional
-from sqlmodel import Field, Relationship, SQLModel
+import enum
+from sqlmodel import Field
+from sqlalchemy import Enum, Column
+
 from src.models.sql_model_common import SQLModelCommon
+
+
+
+class UserRole(enum.Enum):
+    USER = 'USER'
+    VENDOR = 'VENDOR'
+    ADMIN = 'ADMIN'
 
 
 class UserBase(SQLModelCommon):
@@ -8,6 +17,7 @@ class UserBase(SQLModelCommon):
     email: str = Field(index=True)
     phone: str | None = Field(default=None)
     is_active: bool = Field(default=True)
+    account_type: UserRole | None = Field(default=None, sa_column=Column(Enum(UserRole)))
 
 
 class UserBaseWithPassword(UserBase):

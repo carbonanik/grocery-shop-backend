@@ -4,6 +4,7 @@ from src.models.coupon.coupon import Coupon
 from src.models.order.order import Order
 from src.models.shop.shop import Shop
 from src.models.user.user import User
+from src.models.address.address import Address
 
 from .base_crud import BaseCRUD
 
@@ -14,3 +15,4 @@ coupon_crud = BaseCRUD(model=Coupon)
 order_crud = BaseCRUD(model=Order)
 user_crud = BaseCRUD(model=User)
 shop_crud = BaseCRUD(model=Shop)
+address_crud = BaseCRUD(model=Address)
