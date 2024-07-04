@@ -15,10 +15,13 @@ from src.models.category.category import Category
 from src.models.coupon.coupon import Coupon
 from src.models.order.order import Order
 from src.models.order.orderitem import Orderitem
-from src.models.coupon.coupon_order_link import CouponOrderLink
+# from src.models.coupon.coupon_order_link import CouponOrderLink
 from src.models.user.user import User
 from src.models.shop.shop import Shop
-from src.models.shop.shop_user_link import ShopUserLink
+# from src.models.shop.shop_user_link import ShopUserLink
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -52,7 +55,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = config.get_main_option("c")
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -90,7 +93,7 @@ async def run_migrations_online():
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
 
-# config.set_main_option('sqlalchemy.url', os.getenv('DATABASE_URL'))
+config.set_main_option('sqlalchemy.url', 'postgresql+asyncpg://'+os.getenv('DATABASE_URL'))
 
 if context.is_offline_mode():
     run_migrations_offline()

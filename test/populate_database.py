@@ -22,16 +22,17 @@ def mix():
 
     for index, category in enumerate(category_list):
         res = requests.post(
-            url="http://127.0.0.1:8000/category",
+            url="http://127.0.0.1:8000/v1/category",
             json=category
         )
         category_list[index] = res.json()
+        print(res.json())
 
     for index, product in enumerate(product_list):
         product["category_id"] = category_list[index % len(category_list)]["id"]
 
         res = requests.post(
-            url="http://127.0.0.1:8000/product",
+            url="http://127.0.0.1:8000/v1/product",
             json=product
         )
         product_list[index] = res.json()

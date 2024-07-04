@@ -18,7 +18,7 @@ class BaseCRUD():
         obj: CreateSchemaType,
         session: Session
     ) -> ModelType:
-        db_obj = self.model.from_orm(obj)
+        db_obj = self.model.model_validate(obj)
         session.add(db_obj)
         session.commit()
         session.refresh(db_obj)
@@ -30,7 +30,7 @@ class BaseCRUD():
         add_items,
         session: Session
     ) -> ModelType:
-        db_obj = self.model.from_orm(obj)
+        db_obj = self.model.model_validate(obj)
 
         db_obj = add_items(db_obj)
 
@@ -97,14 +97,18 @@ class BaseCRUD():
         session.refresh(db_obj)
         return db_obj
 
-    def delete(entity_type: Type[ModelType], id: int, session: Session):
-        db_entity = session.get(entity_type, id)
-        if not db_entity:
+    def delete(
+        self,
+        id: int,
+        session: Session
+    ) -> ModelType:
+        db_obj = session.get(self.model, id)
+        if not db_obj:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f'{entity_type.__name__} not found'
+                detail=f'{self.model.__name__} not found'
             )
-        session.delete(db_entity)
+        session.delete(db_obj)
         session.commit()
-        return db_entity
+        return db_obj
 

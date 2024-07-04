@@ -1,5 +1,5 @@
 services:
-  grocery-shop-backend:
+  backend:
     build: .
     restart: unless-stopped
     ports:
